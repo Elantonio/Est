@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module'>
+    <script type="module">
         import io.github.cdimascio.dotenv.Dotenv;
     </script>
     <title>Dorpshuis Agenda</title>
@@ -141,8 +141,8 @@
         </div>
     </div>
 
-    < src="https://apis.google.com/js/api.js"></>
-    <>
+    <script src="https://apis.google.com/js/api.js"></script>
+        <script >
         const mode = 'AI';
         const CALENDAR_ID = '38807ec8b5d8e2de18be15619d9d201495019050a2720b951139b51a700c6cc6@group.calendar.google.com';
         let currentAppointmentEnd = null;
@@ -374,6 +374,6 @@
 
         // Start laden
         initCalendar();
-    </>
+     </script> 
 </body>
 </html>
