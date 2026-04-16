@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-
+import io.github.cdimascio.dotenv.Dotenv;
     </script>
     <title>Dorpshuis Agenda</title>
     <style>
@@ -145,13 +145,21 @@
     <script>
         const mode = 'AI';
         const CALENDAR_ID = '38807ec8b5d8e2de18be15619d9d201495019050a2720b951139b51a700c6cc6@group.calendar.google.com';
-        let API_KEY = 'zaSyBNyEAX1JaxagMNtZFMA0t4NauG2yYJBlY'
         let currentAppointmentEnd = null;
         let maxLines = 15; // Maximaal aantal regels (inclusief datums)
+        Dotenv dotenv = Dotenv.load();
 
-        function initCalendar() {
+        // Get API key
+        String  Key = dotenv.get("API_KEY");
+
+        if ( Key == null || Key.isEmpty()) {
+            System.err.println("API key not found in .env file.");
+            return;
+        }
+        let API_KEY = Key'zaSyBNyEAX1JaxagMNtZFAM0t4NauG2yYJBlY'
+         function initCalendar() {
             gapi.load('client', function () {
-                gapi.client.setApiKey(mode + API_KEY);
+                gapi.client.setApiKey(mode + Key);
                 gapi.client.load('calendar', 'v3').then(function () {
                     loadEvents();
                 }).catch(function (error) {
