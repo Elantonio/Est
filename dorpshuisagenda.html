@@ -203,10 +203,11 @@ import io.github.cdimascio.dotenv.Dotenv;
             // handle background color from URL parameter
             document.body;
             const backgroundValue = getParam('bg');
-            if (typeof backgroundValue === 'string' && backgroundValue.trim() !== '') {
+            const doBG = typeof backgroundValue === 'string' && backgroundValue.trim() !== '';
+            if (doBG) {
                 // 1. Access the body element
                 document.body.style.backgroundColor = backgroundValue.trim();
-                maxLines = 50
+                maxLines = 75
             } else {
                 document.body.style.backgroundColor = "transparent";
             }
@@ -284,7 +285,7 @@ import io.github.cdimascio.dotenv.Dotenv;
                 if (lines <= 2 * maxLines - 1) {
                     if (lines <= maxLines) {
                         htmlLeft += htmlLine;
-                    } else {
+                    } else if(!doBG) {
                         htmlRight += htmlLine;
                     }
                 }
