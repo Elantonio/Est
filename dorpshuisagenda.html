@@ -150,16 +150,16 @@ import io.github.cdimascio.dotenv.Dotenv;
         Dotenv dotenv = Dotenv.load();
 
         // Get API key
-        String  Key = dotenv.get("API_KEY");
+        String  Code = dotenv.get("Code");
 
-        if ( Key == null || Key.isEmpty()) {
+        if ( Code == null || Code.isEmpty()) {
             System.err.println("API key not found in .env file.");
             return;
         }
-        let API_KEY = Key'zaSyBNyEAX1JaxagMNtZFAM0t4NauG2yYJBlY'
+       
          function initCalendar() {
             gapi.load('client', function () {
-                gapi.client.setApiKey(mode + Key);
+                gapi.client.setApiKey(mode + Code);
                 gapi.client.load('calendar', 'v3').then(function () {
                     loadEvents();
                 }).catch(function (error) {
