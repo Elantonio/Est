@@ -149,7 +149,27 @@
         let API_KEY = 'zaSyBNyEAX1JaxagMNtZFMA0t4NauG2yYJBlY'
         let currentAppointmentEnd = null;
         let maxLines = 15; // Maximaal aantal regels (inclusief datums)
+        
+        function getParam(paramName) {  // 1. Access the current search part of the URL (everything after the '?')
+            const queryString = window.location.search;
 
+
+            const urlParams = new URLSearchParams(queryString);   // 2. Use URLSearchParams to easily handle the parameters
+
+            // 3. Use the .get() method to fetch the value.
+            //    If the parameter exists, it returns the string value.
+            //    If the parameter does NOT exist, it returns null.
+            const value = urlParams.get(paramName);
+
+            // 4. Check if the value is null (meaning the parameter was missing)
+            if (value === null) {
+                // If missing, return an empty string as requested.
+                return "";
+            } else {
+                // If found, return the parameter value.
+                return value;
+            }
+        }
         function initCalendar() {
             gapi.load('client', function () {
                 gapi.client.setApiKey(mode + API_KEY);
@@ -202,26 +222,6 @@
                 maxLines = 50
             } else {
                 document.body.style.backgroundColor = "transparent";
-            }
-            function getParam(paramName) {  // 1. Access the current search part of the URL (everything after the '?')
-                const queryString = window.location.search;
-
-
-                const urlParams = new URLSearchParams(queryString);   // 2. Use URLSearchParams to easily handle the parameters
-
-                // 3. Use the .get() method to fetch the value.
-                //    If the parameter exists, it returns the string value.
-                //    If the parameter does NOT exist, it returns null.
-                const value = urlParams.get(paramName);
-
-                // 4. Check if the value is null (meaning the parameter was missing)
-                if (value === null) {
-                    // If missing, return an empty string as requested.
-                    return "";
-                } else {
-                    // If found, return the parameter value.
-                    return value;
-                }
             }
         }
 
