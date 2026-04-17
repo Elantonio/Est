@@ -193,7 +193,7 @@
                 'showDeleted': false,
                 'singleEvents': true,
                 'orderBy': 'startTime',
-                'maxResults':  (maxLines * 2) + 20 //<!-- Max 50 + 1 (huidige)-->
+                'maxResults':  useBG ? 150 : (maxLines * 2) + 20 //<!-- Max 50 + 1 (huidige)-->
             });
 
             request.execute(function (response) {
