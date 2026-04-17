@@ -193,7 +193,7 @@
                 'showDeleted': false,
                 'singleEvents': true,
                 'orderBy': 'startTime',
-                'maxResults': (maxLines * 2) + 20 //<!-- Max 50 + 1 (huidige)-->
+                'maxResults':  (maxLines * 2) + 20 //<!-- Max 50 + 1 (huidige)-->
             });
 
             request.execute(function (response) {
@@ -216,10 +216,11 @@
             // handle background color from URL parameter
             document.body;
             const backgroundValue = getParam('bg');
-            if (typeof backgroundValue === 'string' && backgroundValue.trim() !== '') {
+            const useBG = (typeof backgroundValue === 'string' && backgroundValue.trim() !== '');
+            if (useBG) {
                 // 1. Access the body element
                 document.body.style.backgroundColor = backgroundValue.trim();
-                maxLines = 50
+                maxLines = 100
             } else {
                 document.body.style.backgroundColor = "transparent";
             }
