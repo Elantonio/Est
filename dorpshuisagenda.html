@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module">
-        import io.github.cdimascio.dotenv.Dotenv;
+    <script>
+
     </script>
     <title>Dorpshuis Agenda</title>
     <style>
@@ -142,24 +143,16 @@
     </div>
 
     <script src="https://apis.google.com/js/api.js"></script>
-        <script >
+    <script>
         const mode = 'AI';
         const CALENDAR_ID = '38807ec8b5d8e2de18be15619d9d201495019050a2720b951139b51a700c6cc6@group.calendar.google.com';
+        let API_KEY = 'zaSyBNyEAX1JaxagMNtZFMA0t4NauG2yYJBlY'
         let currentAppointmentEnd = null;
         let maxLines = 15; // Maximaal aantal regels (inclusief datums)
-        Dotenv dotenv = Dotenv.load();
 
-        // Get API key
-        String  Code = dotenv.get("Code");
-
-        if ( Code == null || Code.isEmpty()) {
-            System.err.println("API key not found in .env file.");
-            return;
-        }
-       
-         function initCalendar() {
+        function initCalendar() {
             gapi.load('client', function () {
-                gapi.client.setApiKey(mode + Code);
+                gapi.client.setApiKey(mode + API_KEY);
                 gapi.client.load('calendar', 'v3').then(function () {
                     loadEvents();
                 }).catch(function (error) {
@@ -203,11 +196,10 @@
             // handle background color from URL parameter
             document.body;
             const backgroundValue = getParam('bg');
-            const doBG = typeof backgroundValue === 'string' && backgroundValue.trim() !== '';
-            if (doBG) {
+            if (typeof backgroundValue === 'string' && backgroundValue.trim() !== '') {
                 // 1. Access the body element
                 document.body.style.backgroundColor = backgroundValue.trim();
-                maxLines = 75
+                maxLines = 50
             } else {
                 document.body.style.backgroundColor = "transparent";
             }
@@ -285,7 +277,7 @@
                 if (lines <= 2 * maxLines - 1) {
                     if (lines <= maxLines) {
                         htmlLeft += htmlLine;
-                    } else if(!doBG) {
+                    } else {
                         htmlRight += htmlLine;
                     }
                 }
@@ -374,6 +366,6 @@
 
         // Start laden
         initCalendar();
-     </script> 
+    </script>
 </body>
 </html>
