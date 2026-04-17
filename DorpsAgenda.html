@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-
-    </script>
+     </script>
     <title>Dorpshuis Agenda</title>
     <style>
         html {
@@ -134,7 +133,7 @@
         }
     </style>
 </head>
-<body style="background-color=" FF222222">
+<body >
     <div class="container" ">
         <!--<h1>Dorpshuis Agenda</h1>-->
         <div class="appointments" id="appointments">
@@ -150,26 +149,28 @@
         let currentAppointmentEnd = null;
         let maxLines = 15; // Maximaal aantal regels (inclusief datums)
         
-        function getParam(paramName) {  // 1. Access the current search part of the URL (everything after the '?')
+        // Handle background color from URL parameter FIRST
+        const backgroundValue = getParam('bg');
+        const useBG = (typeof backgroundValue === 'string' && backgroundValue.trim() !== '');
+        if (useBG) {
+            document.body.style.backgroundColor = backgroundValue.trim();
+            maxLines = 100
+        } else {
+            document.body.style.backgroundColor = "transparent";
+        }
+      
+      
+        function getParam(paramName) {
             const queryString = window.location.search;
-
-
-            const urlParams = new URLSearchParams(queryString);   // 2. Use URLSearchParams to easily handle the parameters
-
-            // 3. Use the .get() method to fetch the value.
-            //    If the parameter exists, it returns the string value.
-            //    If the parameter does NOT exist, it returns null.
+            const urlParams = new URLSearchParams(queryString);
             const value = urlParams.get(paramName);
-
-            // 4. Check if the value is null (meaning the parameter was missing)
             if (value === null) {
-                // If missing, return an empty string as requested.
                 return "";
             } else {
-                // If found, return the parameter value.
                 return value;
             }
         }
+
         function initCalendar() {
             gapi.load('client', function () {
                 gapi.client.setApiKey(mode + API_KEY);
@@ -193,7 +194,7 @@
                 'showDeleted': false,
                 'singleEvents': true,
                 'orderBy': 'startTime',
-                'maxResults':  useBG ? 150 : (maxLines * 2) + 20 //<!-- Max 50 + 1 (huidige)-->
+                'maxResults':  useBG ? 150 : (maxLines * 2) + 20 // Max 50 + 1 (huidige) 
             });
 
             request.execute(function (response) {
@@ -213,17 +214,6 @@
                 scheduleRefresh(events);
             });
 
-            // handle background color from URL parameter
-            document.body;
-            const backgroundValue = getParam('bg');
-            const useBG = (typeof backgroundValue === 'string' && backgroundValue.trim() !== '');
-            if (useBG) {
-                // 1. Access the body element
-                document.body.style.backgroundColor = backgroundValue.trim();
-                maxLines = 100
-            } else {
-                document.body.style.backgroundColor = "transparent";
-            }
         }
 
         function displayEvents(events) {
@@ -278,7 +268,7 @@
                 if (lines <= 2 * maxLines - 1) {
                     if (lines <= maxLines) {
                         htmlLeft += htmlLine;
-                    } else {
+                    } else if(! useBG){
                         htmlRight += htmlLine;
                     }
                 }
